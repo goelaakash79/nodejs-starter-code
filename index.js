@@ -1,10 +1,10 @@
 const express = require("express");
-const passport = require('passport');
+// const passport = require('passport');
 const path = require('path');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-require('./config/passport')(passport);
+// const cookieParser = require('cookie-parser');
+// const session = require('express-session');
+// require('./config/passport')(passport);
 
 const app = express();
 
@@ -24,20 +24,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(cookieParser());
-app.use(session({
-    secret: process.env.SECRET_KEY,
-    resave: false,
-    saveUninitialized: false
-}));
+// app.use(cookieParser());
+// app.use(session({
+//     secret: process.env.SECRET_KEY,
+//     resave: false,
+//     saveUninitialized: false
+// }));
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-app.use((req, res, next) => {
-    res.locals.user = req.user || null;
-    next();
-});
+// app.use((req, res, next) => {
+//     res.locals.user = req.user || null;
+//     next();
+// });
 
 app.use('/', require('./routes/index'));
 
