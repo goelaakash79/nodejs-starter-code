@@ -9,9 +9,8 @@ require('dotenv').config();
 require('./config/dbconnection');
 
 app.use(cors());
-app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(morgan('tiny'));
+app.use(morgan('dev'));
 app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
