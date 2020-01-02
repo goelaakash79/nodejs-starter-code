@@ -1,49 +1,35 @@
 const express = require("express");
-// const passport = require('passport');
 const path = require('path');
 const bodyParser = require('body-parser');
-// const cookieParser = require('cookie-parser');
-// const session = require('express-session');
-// require('./config/passport')(passport);
-
+const morgan = require("morgan");
+const cors = require('cors');
 const app = express();
 
-const cors = require('cors');
 require('dotenv').config();
 require('./config/dbconnection');
 
 app.use(cors());
 app.set('view engine', 'ejs');
-app.use(express.urlencoded({
-    extended: false
-}));
 app.use(express.static(path.join(__dirname, 'public')));
-
-// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morgan('tiny'));
+app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(cookieParser());
-// app.use(session({
-//     secret: process.env.SECRET_KEY,
-//     resave: false,
-//     saveUninitialized: false
-// }));
+// load schemas
+const User = require("./models/User");
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+// Routes
+app.use('/api/v1/abc', require('./routes/index'));
 
-// app.use((req, res, next) => {
-//     res.locals.user = req.user || null;
-//     next();
+// app.use(express.static(path.join(__dirname, 'client/build')))
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname + '/client/build/index.html'))
+// })
+
+// app.get('*', (req, res) => {
+//     res.render('notfound');
 // });
-
-app.use('/', require('./routes/index'));
-
-app.get('*', (req, res) => {
-    res.render('notfound');
-});
 
 app.listen(process.env.PORT, (err) => {
     if (err) {

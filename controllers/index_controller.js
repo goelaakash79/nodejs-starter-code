@@ -1,7 +1,5 @@
-require('dotenv').config();
+require("dotenv").config();
 
 module.exports.index = (req, res) => {
-    return res.render('index', {
-        message: ''
-    });
+  return res.status(200).json({ message: "" });
 };
